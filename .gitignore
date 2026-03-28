@@ -6,6 +6,10 @@ infrastructure/env/openwebui.env
 infrastructure/env/pipelines.env
 infrastructure/env/vdb.env
 infrastructure/.env
+infrastructure/env
 .env
 *.env
+.venv/
+.venv
+
 
