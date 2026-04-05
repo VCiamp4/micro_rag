@@ -6,6 +6,9 @@ services:
            - env/ollama.env
         ports:
            - "${OLLAMA_PORT:-11434}:11434"
+        dns:
+            - 8.8.8.8
+            - 1.1.1.1
         volumes:
             - ollama_data:/root/.ollama
               #        deploy:
@@ -87,7 +90,7 @@ volumes:
         driver_opts:
             type: 'none'
             o: 'bind'
-            device: ./appdata/postgress/
+            device: ./appdata/postgres/
     pgv_data:
         driver: local
         driver_opts:
