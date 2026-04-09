@@ -1,3 +1,10 @@
+"""
+title: RAG Microbiologia Haystack
+author: Grupo 7
+description: Pipeline de Haystack para microbiología médica.
+version: 1.0
+requirements: haystack-ai, ollama-haystack, pypdf
+"""
 import os
 from pathlib import Path
 
@@ -21,8 +28,16 @@ OLLAMA_BASE_URL = "http://localhost:11434"
 DATA_DIR = Path(__file__).parent / "data"
 
 # --- DOCUMENT STORE ---
-document_store = InMemoryDocumentStore()
+document_store = InMemoryDocumentStore() # Candidato para pasar a PgvectorDocumentStore()
 
+'''
+document_store = PgvectorDocumentStore(
+    embedding_dimension=768,
+    vector_function="cosine_similarity",
+    recreate_table=True,
+    search_strategy="hnsw",
+)
+'''
 
 # --- INDEXING PIPELINE ---
 # Lee archivos PDF y TXT desde data/, los parte en chunks y los embeddea
@@ -34,6 +49,7 @@ joiner = DocumentJoiner()
 
 # Cada chunk: ~10 oraciones con overlap de 2 para no perder contexto entre chunks
 splitter = DocumentSplitter(split_by="sentence", split_length=10, split_overlap=2)
+
 
 doc_embedder = OllamaDocumentEmbedder(
     model=EMBEDDING_MODEL,
@@ -95,7 +111,11 @@ text_embedder = OllamaTextEmbedder(
     url=OLLAMA_BASE_URL
 )
 
-retriever = InMemoryEmbeddingRetriever(document_store, top_k=5)
+retriever = InMemoryEmbeddingRetriever(document_store, top_k=5) # Candidato a pasar a PgvectorEmbeddingRetriever
+
+'''
+retriever = PgvectorEmbeddingRetriever(document_store, top_k=5)
+'''
 
 prompt_builder = PromptBuilder(template=template)
 

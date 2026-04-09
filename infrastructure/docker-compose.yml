@@ -71,6 +71,10 @@ services:
           - pipelines:/app/pipelines
           - rawdata:/app/pipelines/rawdata
 
+        environment:
+            - PIPELINES_API_KEY=${PIPESERVER_KEY}
+        
+
 
 volumes:
     ollama_data:
