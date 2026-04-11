@@ -19,10 +19,12 @@ from haystack.components.joiners import DocumentJoiner
 from haystack_integrations.components.embedders.ollama import OllamaTextEmbedder, OllamaDocumentEmbedder
 from haystack_integrations.components.generators.ollama import OllamaGenerator
 from providers import get_document_store, get_doc_embedder, file_hash
+from pathlib import Path
+
 
 # --- CONFIGURACION ---
-EMBEDDING_MODEL = "bge-m3"
-#GENERATION_MODEL = "ministral-3:3b"
+#EMBEDDING_MODEL = "bge-m3"
+EMBEDDING_MODEL = "qwen-3-embedding:0.6b"
 OLLAMA_BASE_URL = "http://localhost:11434"
 DATA_DIR = Path(__file__).parent / "data"
 
@@ -62,7 +64,11 @@ indexing_pipeline.connect("splitter", "embedder")
 
 
 # Buscar todos los archivos en data/
-files = list(DATA_DIR.glob("**/*.pdf")) + list(DATA_DIR.glob("**/*.txt"))
+# files = list(DATA_DIR.glob("**/*.pdf")) + list(DATA_DIR.glob("**/*.txt"))
+
+
+files = [f.resolve() for f in DATA_DIR.glob("**/*.pdf")] + \
+        [f.resolve() for f in DATA_DIR.glob("**/*.txt")]
 
 if not files:
     print(f"No se encontraron archivos en {DATA_DIR}/")
@@ -83,7 +89,7 @@ for file in files:
         files_to_index.append(file)
 
 
-if files_to_index.count == 0:
+if len(files_to_index) == 0:
     print("No se encontraron archivos nuevos o modificados. Cancelando indexing pipeline")
     exit(2)
 
@@ -97,9 +103,18 @@ docs_with_embeddings = result["embedder"]["documents"]
 
 # Agregamos como metadata un hash
 for doc in docs_with_embeddings:
+    
     source_path = doc.meta.get("file_path") or doc.meta.get("source")
-    if source_path:
-        doc.meta["file_hash"] = file_hash(source_path)
+
+if source_path:
+    source_path = Path(source_path)
+
+    # Si no es absoluto, lo resolvemos contra DATA_DIR
+    if not source_path.is_absolute():
+        source_path = (DATA_DIR / source_path).resolve()
+
+    doc.meta["file_path"] = str(source_path)
+    doc.meta["file_hash"] = file_hash(source_path)
 
 document_store.write_documents(docs_with_embeddings)
 

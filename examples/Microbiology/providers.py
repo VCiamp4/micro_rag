@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from haystack_integrations.document_stores.pgvector import PgvectorDocumentStore
 from haystack_integrations.components.embedders.ollama import (
     OllamaTextEmbedder,
@@ -8,12 +9,9 @@ import hashlib
 import os
 from haystack.utils import Secret
 
-from dotenv import load_dotenv
+load_dotenv("infrastructure/.env")
 
 
-load_dotenv("../infrastructure/env/vdb.env") 
-
-# Ahora os.getenv ya no devolverá None
 user = os.getenv('PGVECTOR_USR')
 password = os.getenv('PGVECTOR_PASS')
 host = os.getenv('VDB_HOST', 'localhost') 
@@ -23,11 +21,8 @@ db = os.getenv('PGVECTOR_DB')
 conn_str = f"postgresql://{user}:{password}@{host}:{port}/{db}"
 
 
-conn_str = f"postgresql://{os.getenv('PGVECTOR_USR')}:{os.getenv('PGVECTOR_PASS')}@{os.getenv('VDB_HOST')}:{os.getenv('VDB_PORT')}/{os.getenv('PGVECTOR_DB')}"
-
-
 EMBEDDING_MODEL = "bge-m3"
-GENERATION_MODEL = "qwen3.5:9b"
+GENERATION_MODEL = "qwen3.5:0.8b"
 OLLAMA_BASE_URL = "http://localhost:11434"
 SECONDS_TIMEOUT = 91218
 
