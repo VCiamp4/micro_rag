@@ -34,7 +34,7 @@ document_store = get_document_store()
 retriever = PgvectorEmbeddingRetriever(
     document_store=document_store, 
     top_k=5
-    )
+)
 
 prompt_builder = PromptBuilder(template=template)
 

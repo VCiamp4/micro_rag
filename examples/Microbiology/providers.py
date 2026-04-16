@@ -4,7 +4,8 @@ from haystack_integrations.components.embedders.ollama import (
     OllamaTextEmbedder,
     OllamaDocumentEmbedder
 )
-from haystack_integrations.components.generators.ollama import OllamaGenerator
+#from haystack_integrations.components.generators.ollama import OllamaGenerator
+from haystack.components.generators.openai import OpenAIGenerator
 import hashlib
 import os
 from haystack.utils import Secret
@@ -22,7 +23,7 @@ conn_str = f"postgresql://{user}:{password}@{host}:{port}/{db}"
 
 
 EMBEDDING_MODEL = "bge-m3"
-GENERATION_MODEL = "qwen3.5:9b"
+GENERATION_MODEL = "llama-3.1-8b-instant" #"qwen3.5:9b"
 OLLAMA_BASE_URL = "http://localhost:11434"
 SECONDS_TIMEOUT = 91218
 
@@ -56,7 +57,7 @@ def get_text_embedder():
         timeout=SECONDS_TIMEOUT
     )
 
-
+'''
 def get_generator():
     return OllamaGenerator(
         model=GENERATION_MODEL,
@@ -66,4 +67,16 @@ def get_generator():
             "temperature": 0.3,
         },
         timeout=SECONDS_TIMEOUT
+    )
+'''
+    
+def get_generator():
+    return OpenAIGenerator(
+        api_key=Secret.from_token(os.getenv("GROQ_API_KEY")),
+        model=GENERATION_MODEL,
+        api_base_url="https://api.groq.com/openai/v1",
+        generation_kwargs={
+            "temperature": 0.3,
+            "max_tokens": 1000,
+        },
     )
