@@ -23,7 +23,7 @@ conn_str = f"postgresql://{user}:{password}@{host}:{port}/{db}"
 
 
 EMBEDDING_MODEL = "bge-m3"
-GENERATION_MODEL = "llama-3.1-8b-instant" #"qwen3.5:9b"
+GENERATION_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct" #"llama-3.1-8b-instant" #"qwen3.5:9b"
 OLLAMA_BASE_URL = "http://localhost:11434"
 SECONDS_TIMEOUT = 91218
 
@@ -76,7 +76,7 @@ def get_generator():
         model=GENERATION_MODEL,
         api_base_url="https://api.groq.com/openai/v1",
         generation_kwargs={
-            "temperature": 0.3,
-            "max_tokens": 1000,
+            "temperature": 0.2,
+            "max_tokens": 500,
         },
     )
