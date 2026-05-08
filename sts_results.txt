@@ -1,0 +1,143 @@
+================================================================================
+
+QUESTION:
+¿Cuál fue la principal optimización introducida en quadratic3.c para operaciones float?
+
+--- MARKDOWN ANSWER ---
+El uso de funciones específicas para float, como 'powf' o 'sqrtf', y la definición de vectores específicamente de datos float, de manera tal que las operaciones se hagan entre tipos iguales y no se hagan conversiones implícitas.
+
+--- TXT ANSWER ---
+Se usan funciones específicas para float, como 'powf' o 'sqrtf', lo cual quita el overhead de tratar de convertirlos a double.
+
+STS SCORE: 0.8193
+
+================================================================================
+
+QUESTION:
+¿Por qué el uso de funciones como sqrtf y powf mejoró el rendimiento?
+
+--- MARKDOWN ANSWER ---
+El uso de funciones como `sqrtf` y `powf` mejoró el rendimiento porque quitaron el overhead de tratar de convertir los valores a `double`. Estas funciones son específicas para el tipo de dato `float`, lo que permitió evitar conversiones implícitas entre `float` y `double` durante las operaciones, reduciendo así la sobrecarga y mejorando la performance.
+
+--- TXT ANSWER ---
+Porque quita el overhead de tratar de convertirlos a double.
+
+STS SCORE: 0.5729
+
+================================================================================
+
+QUESTION:
+¿Qué mejora de rendimiento obtuvo float en quadratic3.c dentro del clúster?
+
+--- MARKDOWN ANSWER ---
+aproximadamente un 50% de mejora.
+
+--- TXT ANSWER ---
+aproximadamente una mejora del 50%
+
+STS SCORE: 0.9134
+
+================================================================================
+
+QUESTION:
+¿Por qué float puede mejorar el aprovechamiento de caché respecto de double?
+
+--- MARKDOWN ANSWER ---
+Porque con float se pueden almacenar el doble de valores que con double.
+
+--- TXT ANSWER ---
+Al tener la mitad del tamaño, es probable que los aciertos de caché incrementen, ya que se pueden almacenar el doble de valores de precisión simple, comparado a los de precisión doble.
+
+STS SCORE: 0.4619
+
+================================================================================
+
+QUESTION:
+¿Qué resultado inesperado se observó en el equipo hogareño al comparar float y double en quadratic2.c?
+
+--- MARKDOWN ANSWER ---
+La diferencia es ínfima, e incluso da mejores resultados del lado de doble precisión.
+
+--- TXT ANSWER ---
+La diferencia en tiempos de cómputo entre float y double fue ínfima, e incluso en algunos casos, el tipo de dato double dio mejores resultados que float.
+
+STS SCORE: 0.5789
+
+================================================================================
+
+QUESTION:
+¿Qué característica del CPU fue mencionada como posible explicación del buen rendimiento de double en el equipo hogareño?
+
+--- MARKDOWN ANSWER ---
+La arquitectura Zen3 del procesador, que ofrece una menor latencia en operaciones de punto flotante, y el uso de instrucciones AVX2, que permiten operaciones de punto flotante intensivas con vectores de 256 bits.
+
+--- TXT ANSWER ---
+La arquitectura Zen3 del procesador, que ofrece una menor latencia en operaciones de punto flotante.
+
+STS SCORE: 0.6660
+
+================================================================================
+
+QUESTION:
+¿Qué ventajas podría aportar utilizar Linux Mint Xia 22.1 en un entorno de experimentación científica?
+
+--- MARKDOWN ANSWER ---
+No puedo responder esa pregunta
+
+--- TXT ANSWER ---
+No puedo responder esa pregunta
+
+STS SCORE: 1.0000
+
+================================================================================
+
+QUESTION:
+¿Cómo podrían influir las características del procesador AMD Ryzen 5 7530U en el rendimiento de los experimentos realizados?
+
+--- MARKDOWN ANSWER ---
+La arquitectura Zen3 del procesador AMD Ryzen 5 7530U pudo haber sido influyente en los buenos resultados obtenidos con la precisión doble relativos a los obtenidos en el clúster, ya que ofrece una menor latencia en operaciones de punto flotante. Además, el procesador cuenta con instrucciones AVX2, que son un conjunto de instrucciones de 256 bits que se utilizan para operaciones de punto flotante intensivas, lo que podría mejorar el rendimiento en ciertos cálculos. También, la caché L1, L2 y L3 del procesador (384 KiB, 3 MiB y 16 MiB respectivamente) podrían influir en el rendimiento al aprovechar muy bien la caché, especialmente en el caso de la precisión simple.
+
+--- TXT ANSWER ---
+La arquitectura Zen3 del procesador pudo haber sido influyente ya que ofrece una menor latencia en operaciones de punto flotante. También, se aprovechó muy bien la caché: La performance de la simple precisión fue mejor en experimentos anteriores ya que la doble precisión puede generar la necesidad de acceder más veces a memoria por un ' miss' de caché. Los niveles grandes de caché del equipo hogareño deben de ser mayores a los del clúster y quitaron ese acceso adicional.
+
+STS SCORE: 0.7352
+
+================================================================================
+
+QUESTION:
+¿Por qué disponer de varios niveles de caché puede afectar los tiempos de ejecución de un algoritmo?
+
+--- MARKDOWN ANSWER ---
+No puedo responder esa pregunta
+
+--- TXT ANSWER ---
+La  performance  de  la simple precisión fue mejor en experimentos anteriores ya que la doble precisión puede generar la necesidad  de  acceder  más  veces  a memoria por un ' miss' de caché. Los niveles grandes de caché del equipo hogareño deben de ser mayores a los del clúster y quitaron ese acceso adicional
+
+STS SCORE: 0.1192
+
+================================================================================
+
+QUESTION:
+¿Qué diferencias estructurales existían entre el clúster remoto y el equipo hogareño utilizado?
+
+--- MARKDOWN ANSWER ---
+No puedo responder esa pregunta
+
+--- TXT ANSWER ---
+No puedo responder esa pregunta
+
+STS SCORE: 1.0000
+
+================================================================================
+
+QUESTION:
+¿Por qué los autores decidieron no utilizar el flag -Ofast a pesar de obtener mejores tiempos?
+
+--- MARKDOWN ANSWER ---
+No puedo responder esa pregunta
+
+--- TXT ANSWER ---
+No puedo responder esa pregunta
+
+STS SCORE: 1.0000
+

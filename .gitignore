@@ -1,10 +1,28 @@
-infrastructure/appdata
-infrastructure/env/.env
-infrastructure/env/db.env
-infrastructure/env/ollama.env
-infrastructure/env/openwebui.env
-infrastructure/env/pipelines.env
-infrastructure/env/vdb.env
+# Docker / local state
+infrastructure/appdata/*
+!infrastructure/appdata/pipelines/
+
+# Ignorar todo dentro de pipelines por defecto (archivos generados o descargados)
+infrastructure/appdata/pipelines/*
+# ...pero permitir los archivos que queremos versionar específicamente
+!infrastructure/appdata/pipelines/seven_wonders_rag.py
+!infrastructure/appdata/pipelines/.gitkeep
+
+# Seguir ignorando las subcarpetas de configuración personal
+infrastructure/appdata/pipelines/*/
+
+# Environment files
+infrastructure/env/*.env
+!infrastructure/env/*.env.example
+infrastructure/.env
+
+# Python
+**/__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
 infrastructure/.env
 infrastructure/env
 .env
