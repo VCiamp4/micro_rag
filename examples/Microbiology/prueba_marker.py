@@ -23,7 +23,7 @@ marker = PdfConverter(artifact_dict=create_model_dict())
 
 # Definición de rutas
 BASE_DIR = Path(__file__).parent
-DATA_DIR = BASE_DIR / "pdf_para_prueba"
+DATA_DIR = BASE_DIR / "cuento"
 OUTPUT_DIR = BASE_DIR / "data_prueba_marker"
 
 # Crear la carpeta de salida si no existe
